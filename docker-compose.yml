@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  hat_miniapp_api:
+    image: hat-miniapp-api
+    ports:
+      - "127.0.0.1:5001:5000"
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - mongo
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+  mongo:
+    image: mongo:4.2.3-bionic
+    ports:
+      - "127.0.0.1:27020:27017"
+    volumes:
+      - ./data/mongo:/data/db
+    env_file:
+      - mongo.env
+volumes:
+  mongo-duels:
